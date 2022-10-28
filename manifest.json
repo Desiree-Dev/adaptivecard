@@ -1,0 +1,111 @@
+{
+    "_version": "1.17.0",
+    "sap.app": {
+        "id": "lkrr.adaptivecard.embedded.opentextESS",
+        "type": "card",
+        "title": "OpenText Document Self Service",
+        "subTitle": "via eMail",
+        "applicationVersion": {
+            "version": "1.0.7"
+        },
+        "shortTitle": "OpenText Document Self Service",
+        "info": "OpenText Document Self Service",
+        "description": "OpenText Document Self Service",
+        "tags": {
+            "keywords": [
+                "OpenText",
+                "Document",
+                "4711"
+            ]
+        }
+    },
+    "sap.card": {
+        "extension": "./OTDocumentExt",
+        "configuration": {
+            "parameters": {
+                "currentLoginSFUserID": {
+                    "label": "User ID",
+                    "value": "{context>sap.successfactors/currentUser/id/value}",
+                    "type": "string"
+                },
+                "sfCompanyID": {
+                    "label": "Company ID",
+                    "value": "{context>sap.successfactors/currentCompany/id/value}",
+                    "type": "string"
+                }
+            },
+            "destinations": {
+                "SFSFDestination": {
+                    "name": "SuccessFactors_API"
+                },
+                "SFSFDestination2": {
+                    "name": "SFADMIN"
+                }
+            }
+        },
+        "type": "AdaptiveCard",
+        "designtime": "dt/Configuration",
+		"data": {
+            "extension": {
+        		"method": "getData"
+      			}
+		},
+        "header": {
+            "title": "Document Generation",
+            "subTitle": "Documents will be sent to via you eMail",
+            "icon": {
+                "src": "sap-icon://create"
+            }
+        },
+        "content": {
+            "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+            "type": "AdaptiveCard",
+            "version": "1.0",
+            "body": [
+                {
+                    "type": "TextBlock",
+                    "text": "Your Email Address",
+                    "isSubtle": true,
+                    "size": "medium"
+                },
+                {
+                    "type": "Input.Text",
+                    "value": "your.private@email.com",
+                    "style": "text",
+                    "id": "UserEmail"
+                },
+                {
+                    "type": "TextBlock",
+                    "text": "Select your document",
+                    "isSubtle": true,
+                    "size": "medium"
+                },
+                {
+                    "type": "Input.ChoiceSet",
+                    "id": "TemplateID",
+                    "style": "compact",
+                    "isMultiSelect": false,
+                    "value": "Value",
+                    "choices": [
+                        {
+                            "$data": "1",
+                            "title": "Employment Certificate",
+                            "value": "1"
+                        },
+                        {
+                            "$data": "2",
+                            "title": "Promotion Letter",
+                            "value": "2"
+                        }
+                    ]
+                }
+            ],
+            "actions": [
+                {
+                    "type": "Action.Submit",
+                    "title": "Request"
+                }
+            ]
+        }
+    }
+}
